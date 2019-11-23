@@ -37,7 +37,7 @@
 #define PTE_A     0x040 // Accessed
 #define PTE_D     0x080 // Dirty
 #define PTE_SOFT  0x300 // Reserved for Software
-
+#define PTE_L     1<<8  
 #define PTE_PPN_SHIFT 10
 
 #define PTE_TABLE(PTE) (((PTE) & (PTE_V | PTE_R | PTE_W | PTE_X)) == PTE_V)
@@ -62,7 +62,7 @@ static inline void flush_tlb(void)
 }
 
 static inline pte_t pte_create(unsigned long ppn, int type)
-{ 
+{
   return __pte( (ppn << PTE_PPN_SHIFT) | PTE_V | type );
 }
 

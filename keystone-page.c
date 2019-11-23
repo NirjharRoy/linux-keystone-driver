@@ -85,8 +85,8 @@ int epm_init(epm_t* epm, unsigned int min_pages)
   count = 0x1 << order;
 
   /* prevent kernel from complaining about an invalid argument */
-  if (order <= MAX_ORDER)
-    epm_vaddr = (vaddr_t) __get_free_pages(GFP_HIGHUSER, order);
+  //if (order <= MAX_ORDER)
+  //  epm_vaddr = (vaddr_t) __get_free_pages(GFP_HIGHUSER, order);
 
 #ifdef CONFIG_CMA
   /* If buddy allocator fails, we fall back to the CMA */
@@ -347,5 +347,5 @@ vaddr_t epm_alloc_user_page_noexec(epm_t* epm, vaddr_t addr)
 
 vaddr_t epm_alloc_user_page(epm_t* epm, vaddr_t addr)
 {
-  return epm_alloc_page(epm, addr, PTE_D | PTE_A | PTE_R | PTE_X | PTE_W | PTE_U);
+  return epm_alloc_page(epm, addr, PTE_D | PTE_A | PTE_R | PTE_X | PTE_W | PTE_U|PTE_L);
 }
